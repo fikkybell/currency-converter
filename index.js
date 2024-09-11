@@ -1,18 +1,20 @@
-import Freecurrencyapi from './node_modules/@everapi/freecurrencyapi-js/index.js';
-
-
-// Freecurrencyapi instance
-const freecurrencyapi = new Freecurrencyapi("fca_live_hxWwg1IV3tRaUrBRwZtvb2RX2RsCSORhZCtUOpsa");
+const getCurrencies = (params = {}, path = 'latest')=>{
+    let url = `https://api.freecurrencyapi.com/v1/${path}?apikey=fca_live_hxWwg1IV3tRaUrBRwZtvb2RX2RsCSORhZCtUOpsa`
+    Object.keys(params).forEach(key => {
+        url += '&' + key + '=' + params[key];
+    });
+    return fetch(url).then(response => response.json())
+}
 
 function fetchCurrencies() {
-    freecurrencyapi.currencies().then(response => {
+    getCurrencies({},'currencies').then(response => {
         const currencySelectFrom = document.getElementById('currency-select-from');
         const currencySelectTo = document.getElementById('currency-select-to');
         const currencySymbolGet = document.getElementById('symbol-get')
         const currencySymbolHave = document.getElementById('symbol-have')
         const currencies = response.data;
         // console.log(currencies.AUD.name)
-       
+
         // 'from' select
         Object.keys(currencies).forEach(currencyCode => {
             const option = document.createElement('option');
@@ -27,8 +29,8 @@ function fetchCurrencies() {
                 currencySymbolHave.textContent = `${currency.name}`;
             }
         });
-        
-        
+
+
         // 'to' select
         Object.keys(currencies).forEach(currencyCode => {
             const option = document.createElement('option');
@@ -36,8 +38,8 @@ function fetchCurrencies() {
             option.textContent = currencyCode;
             currencySelectTo.appendChild(option);
         });
-        
-       
+
+
         currencySelectTo.addEventListener('change', () => {
             const selectedCurrencyCode = currencySelectTo.value;
             const currency = currencies[selectedCurrencyCode];
@@ -45,7 +47,7 @@ function fetchCurrencies() {
                 currencySymbolGet.textContent = `${currency.name}`;
             }
         });
-        
+
     }).catch(error => {
         console.error("Error fetching currencies:", error);
     });
@@ -74,33 +76,33 @@ convertButton.addEventListener('click', () => {
 
     const fromCurrency = currencySelectFrom.value;
     const toCurrency = currencySelectTo.value;  // Target currency
-    
+
     console.log(currencySelectTo.value)
-    
-    freecurrencyapi.latest({
-        base_currency: fromCurrency, 
-        currencies: toCurrency       
+
+    getCurrencies({
+        base_currency: fromCurrency,
+        currencies: toCurrency
     }).then(response => {
-       
+
         let conversionRate = response.data[toCurrency];
         console.log("Conversion Rate:", conversionRate);
 
         conversionRate = parseFloat(conversionRate.toFixed(3));
-       
-       
+
+
         if (!conversionRate || isNaN(conversionRate)) {
             console.error("Invalid conversion rate received.");
             return;
         }
 
-       
-        const convertedAmount = Math.round(amount * conversionRate); 
-        console.log("Converted Amount:", convertedAmount); 
-        
-      
+
+        const convertedAmount = Math.round(amount * conversionRate);
+        console.log("Converted Amount:", convertedAmount);
+
+
         saveConversionHistory(amount, fromCurrency, convertedAmount, toCurrency);
 
-        
+
         youGetElement.textContent = convertedAmount;
     }).catch(error => {
         console.error("Error fetching conversion rate:", error);
@@ -111,24 +113,24 @@ convertButton.addEventListener('click', () => {
 
 function saveConversionHistory(amount, fromCurrency, convertedAmount, toCurrency) {
     const history = JSON.parse(localStorage.getItem('conversionHistory')) || [];
-    
-    
+
+
     const newEntry = {
         id: Date.now(),
         amount,
         fromCurrency,
         convertedAmount,
         toCurrency,
-      
+
     };
 
-   
+
     history.push(newEntry);
 
-   
+
     localStorage.setItem('conversionHistory', JSON.stringify(history));
 
-   
+
     updateHistorySection();
 }
 
@@ -138,10 +140,10 @@ function updateHistorySection() {
     const historyTrackContainer = historySection.querySelector('.history-hap');
     const history = JSON.parse(localStorage.getItem('conversionHistory')) || [];
 
-   
+
     historyTrackContainer.innerHTML = '';
 
-  
+
     history.forEach(entry => {
         const historyDiv = document.createElement('div');
         historyDiv.classList.add('history-track');
@@ -159,12 +161,12 @@ function updateHistorySection() {
 
             </div>
         `;
-      
+
         historyTrackContainer.appendChild(historyDiv);
-       
-        
+
+
     });
-     
+
 
      document.querySelectorAll('.cancel-img').forEach(cancelBtn => {
         cancelBtn.addEventListener('click', clearHistoryById);
@@ -180,21 +182,21 @@ function clearAllHistory(){
 }
 
 function clearHistoryById(event) {
-    const entryId = event.target.getAttribute('data-id'); 
+    const entryId = event.target.getAttribute('data-id');
     let history = JSON.parse(localStorage.getItem('conversionHistory')) || [];
     console.log("Entry ID to delete:", entryId);
-    
+
     history = history.filter(entry => entry.id != entryId);
 
-   
+
     localStorage.setItem('conversionHistory', JSON.stringify(history));
 
-    
+
     updateHistorySection();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    updateHistorySection();  
+    updateHistorySection();
 });
 
 

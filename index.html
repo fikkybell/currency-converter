@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+   
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Currency Converter || Bello</title>
+</head>
+<body>
+    <header>
+        <h1>Convertex</h1>
+        <p class="header-desc">Get your exchange rates instantly</p>
+    </header>
+    <main>
+        <section class="exchange-converter">
+            <!-- Converter -->
+            <div class="converter">
+                <div class="converter-result">
+                    <p class="converter-have">You have:</p>
+                    <p class="converter-have-number">5,000</p>
+                </div>
+                <div class="currency converter-result">
+                    <p class="converter-currency-usd">United States Dollar</p>
+                    <div class="currency-usd">
+                        <p class="converter-usd-symbol">USD</p>
+                        <img src="assets/arrowdown.svg" alt="arrow down" class="arrowdown">
+                    </div>
+                </div>
+                <div>
+                    
+                </div>
+                <img src="assets/arrowright.svg" alt="arrowright" class="arrowright">
+                <div class="converter-result">
+                    <p class="converter-have">You get:</p>
+                    <p class="converter-have-number">5,000000</p>
+                </div>
+                <div class="currency converter-result">
+                    <p class="converter-currency-usd">Nigeria Naira</p>
+                    <div class="currency-naira">
+                        <p class="converter-usd-symbol">NGN</p>
+                        <img src="assets/arrowdown.svg" alt="arrow down" class="arrowdown">
+                    </div>
+                </div>
+                
+            </div>
+            <div class="exchange">
+                <p class="exchange-usd">1 USD = <span class="exchange-rate">1700</span></p>
+                <button class="exchange-btn">Convert Currency</button>
+            </div>
+        </section>
+        <section class="history">
+            <!-- History -->
+            <div class="history-section">
+                <span class="history-header">
+                    <p class="history-text">History</p>
+                    <p class="history-prev">List of previous conversions</p>
+                </span>
+                <button class="clear-btn">Clear History</button>
+            </div>
+
+            <!-- History track-->
+            <div class="history-track">
+                <div class="currency-number">
+                    <p class="currency-num">5000</p>
+                    <p class="currency-history-usd">USD</p>
+                    <img src="assets/arrowright.svg" alt="">
+                    <p class="currency-num">5000</p>
+                    <p class="currency-history-usd">NGN</p>
+                </div>
+                <img src="assets/cancel.svg" alt="cancel" class="cancel-img">
+            </div>
+        </section>
+    </main>
+    <script type="module" src="index.js"></script>
+</body>
+</html>

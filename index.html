@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/styles.css">
    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <title>Currency Converter || Bello</title>
 </head>
 <body>
@@ -17,40 +18,41 @@
         <section class="exchange-converter">
             <!-- Converter -->
             <div class="converter">
-                <div class="converter-result">
-                    <p class="converter-have">You have:</p>
-                    <p class="converter-have-number">5,000</p>
+                <div class="converter-item">
+                    <p class="converter-have inter">You have:</p>
+                    <input id="number" class="custom-line-input" type="number">
                 </div>
-                <div class="currency converter-result">
-                    <p class="converter-currency-usd">United States Dollar</p>
+                <div class="currency converter-item">
+                    <p class="converter-currency-usd inter" id="symbol-have">United States Dollar</p>
                     <div class="currency-usd">
-                        <p class="converter-usd-symbol">USD</p>
-                        <img src="assets/arrowdown.svg" alt="arrow down" class="arrowdown">
+                        <select name="currency" id="currency-select-from" class="custom-select">
+                            <option value=""></option>
+                        </select>
                     </div>
                 </div>
-                <div>
-                    
+                <div class="arrow-container">
+                    <img src="assets/arrowright.svg" alt="arrowright" class="arrowright">
                 </div>
-                <img src="assets/arrowright.svg" alt="arrowright" class="arrowright">
-                <div class="converter-result">
-                    <p class="converter-have">You get:</p>
-                    <p class="converter-have-number">5,000000</p>
+                <div class="converter-result converter-item">
+                    <p class="converter-have inter">You get:</p>
+                    <p id="youget" class="converter-have-number jet">0</p>
                 </div>
-                <div class="currency converter-result">
-                    <p class="converter-currency-usd">Nigeria Naira</p>
+                <div class="currency converter-item">
+                    <p class="converter-currency-usd inter" id="symbol-get">Nigeria Naira</p>
                     <div class="currency-naira">
-                        <p class="converter-usd-symbol">NGN</p>
-                        <img src="assets/arrowdown.svg" alt="arrow down" class="arrowdown">
+                        <select name="currency" id="currency-select-to" class="custom-select">
+                            <option value=""></option>
+                        </select>
                     </div>
                 </div>
-                
             </div>
+            
             <div class="exchange">
-                <p class="exchange-usd">1 USD = <span class="exchange-rate">1700</span></p>
-                <button class="exchange-btn">Convert Currency</button>
+                <p class="exchange-usd inter">1 <span>USD</span> = <span class="exchange-rate">1700</span></p>
+                <button class="exchange-btn inter">Convert Currency</button>
             </div>
         </section>
-        <section class="history">
+        <section class="history inter">
             <!-- History -->
             <div class="history-section">
                 <span class="history-header">
@@ -61,18 +63,12 @@
             </div>
 
             <!-- History track-->
-            <div class="history-track">
-                <div class="currency-number">
-                    <p class="currency-num">5000</p>
-                    <p class="currency-history-usd">USD</p>
-                    <img src="assets/arrowright.svg" alt="">
-                    <p class="currency-num">5000</p>
-                    <p class="currency-history-usd">NGN</p>
-                </div>
-                <img src="assets/cancel.svg" alt="cancel" class="cancel-img">
+        <div class="history-hap jet">
+                
             </div>
         </section>
     </main>
     <script type="module" src="index.js"></script>
 </body>
 </html>
+
